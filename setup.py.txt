@@ -1,0 +1,29 @@
+import os
+import shutil
+
+# Функция для создания файла и записи данных
+def create_file(filename, content):
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(content)
+
+# Создание файлов с животными
+create_file('Домашние_животные.txt', 'Собака\nКошка\nХомяк\n')
+create_file('Вьючные_животные.txt', 'Лошадь\nВерблюд\nОсел\n')
+
+# Объединение файлов и переименование
+with open('Животные.txt', 'w', encoding='utf-8') as outfile:
+    for fname in ['Домашние_животные.txt', 'Вьючные_животные.txt']:
+        with open(fname, 'r', encoding='utf-8') as infile:
+            outfile.write(infile.read())
+
+os.rename('Животные.txt', 'Друзья_человека.txt')
+
+# Создание директории и перемещение файла
+if not os.path.exists('Питомник'):
+    os.makedirs('Питомник')
+
+shutil.move('Друзья_человека.txt', 'Питомник/Друзья_человека.txt')
+
+# Вывод содержимого директории
+print('Содержимое директории Питомник:')
+print(os.listdir('Питомник'))
